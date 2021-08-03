@@ -15,7 +15,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="number" class="form-control @error('email') is-invalid @enderror" name="phone" value="" required autofocus>
+                                <input id="email" type="number" class="form-control @error('email') is-invalid @enderror" name="phone" maxlength = "10" required autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

@@ -20,7 +20,6 @@
 
                         <input type="submit"/>
                     </form>
-                    <input type="button" id = "button" onclick = "MyFunction()">
                 </div>
 
 
@@ -32,14 +31,5 @@
 <script>
         var today = new Date().toISOString().split('T')[0];
         var date = document.getElementById("myDate").value;
-
-
-
-        document.getElementsByName("somedate")[0].setAttribute('min', today);
-        function MyFunction() {
-            console.log(date);
-        }
-
-
 </script>
 @endsection

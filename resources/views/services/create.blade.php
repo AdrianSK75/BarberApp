@@ -3,36 +3,31 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form class="bg-white py-3 px-4 shadow rounded" action="{{ route('service.store') }}" method ="POST ">
+            <form method ="POST" action="/service" class="bg-white py-3 px-4 shadow rounded" enctype="multipart/form-data">
+                @csrf
                 <div class = "form-group">
-                    <label for="service_name"> Nume serviciu* </label>
-                    <input type ="text"  class="form-control" id = "serviceName"/>
+                    <label for="name"> Nume serviciu* </label>
+                    <input type ="text"  class="form-control" id = "serviceName" name="name"/>
                 </div>
 
                 <div class = "form-group">
-                    <label for="activityType"> Tip de activitate* </label>
-                    <select class="form-select" id = "activityType">
-                        <option selected></option>
-                        @foreach($activity as $activities)
-                                <option>  {{ $activities->activity }} </option>
-                        @endforeach
-                      </select>
-
+                    <label for="activity"> Tip de activitate* </label>
+                    <input type ="text"  class="form-control" id = "serviceName" name="activity"/>
                 </div>
 
                 <div class = "form-group">
-                    <label for="body"> Descriere Serviciu </label>
-                    <textarea class="form-control" id="bodyArea" rows="5" placeholder="(optional)"></textarea>
+                    <label for="description"> Descriere Serviciu </label>
+                    <textarea class="form-control" name = "description" id="bodyArea" rows="5" placeholder="(optional)"></textarea>
                 </div>
 
                 <div class = "form-group">
-                    <label for="service_time"> Durata serviciului* </label>
-                    <input type ="tel"  class="form-control" id = "serviceTime"/>
+                    <label for="time"> Durata serviciului* </label>
+                    <input type ="tel" name="time" class="form-control" id = "serviceTime"/>
                 </div>
 
                 <div class = "form-group">
-                    <label for="service_price"> Pretul serviciului* </label>
-                    <input type ="tel"  class="form-control" id = "servicePrice"/>
+                    <label for="price"> Pretul serviciului* </label>
+                    <input type ="tel" name="price" class="form-control" id = "servicePrice"/>
                 </div>
                 <div class = "form-group">
                     <input type="submit" class = "btn btn-success"  value = "Salveaza">
@@ -44,3 +39,10 @@
     </div>
 
 @endsection
+<!--
+    <option value = "1"> Frizerie si barber shop </option>
+    <option value = "2"> Coafor si hairstyling </option>
+    <option value = "3"> Make Up si Beauty </option>
+    <option value = "4"> Alte servicii </option>
+    {{ route('service_store') }}
+-->

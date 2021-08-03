@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Bun venit pe profilul tau {{ auth()->user()->name }} !</div>
+                <div class="card-header">Bun venit pe profilul tau {{ auth()->user()->forename}} !</div>
 
                 <div class="card-body">
                     @if (session('status'))

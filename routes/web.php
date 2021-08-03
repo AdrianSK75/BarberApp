@@ -24,20 +24,22 @@ Auth::routes();
 
 Route::get('/appointments', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth');
 
-Route::get('/user/{phone}', function($phone) {
-        if(auth()->user()->phone !== $phone)
-            abort(404);
-        return view('user.dashboard');
+// User Routes
+Route::get('/user/{phone}', function() {
+        return view('user.user');
 })->middleware('auth');
-
-Route::get('/user/{phone}/admin', function($phone) {
+Route::get('/user/{phone}/admin', function() {
     return view('user.admin');
 })->middleware('admin');
+Route::get('user-panel', [UserController::class, 'manage'])->middleware('admin');
 
-Route::resource('service', ServiceController::class)->middleware('auth');
 
-//Route::post('/service', [ServiceController::class, 'store']);
+// Service Routes
+Route::resource('service', ServiceController::class);
+Route::post('service', [ServiceController::class, 'store']);
+Route::post('service/{id}', [ServiceController::class, 'update']);
 
-Route::get('service/create', function($activity) {
-            return view('services.create')->with('activity', $activity);
+// Schedule Routes
+Route::get('schedule', function() {
+        return view('schedule.panel');
 });
