@@ -8,8 +8,11 @@ use App\Models\Service;
 
 class ServiceController extends Controller {
 
+
+
+
     public function index() {
-        $services = Service::orderBy('id')->paginate(2);
+        $services = Service::orderBy('id')->paginate(5);
         return view('services.index', ['services' => $services]);
     }
 
@@ -33,9 +36,10 @@ class ServiceController extends Controller {
        $service->description = $request->input('description');
        $service->time = $request->input('time');
        $service->price = $request->input('price');
+       $service->user_id = auth()->user()->id;
        $service->save();
 
-       return redirect('service');
+       return redirect('servicii');
     }
     public function edit($id) {
         $service = Service::findOrFail($id);
@@ -60,12 +64,11 @@ class ServiceController extends Controller {
        $service->price = $request->input('price');
        $service->save();
 
-       return redirect('service');
+       return redirect('servicii');
 
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $service = Service::findOrFail($id);
         $service->delete();
 

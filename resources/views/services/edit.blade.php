@@ -3,7 +3,7 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <form method ="POST" action="/service/ {{ $service->id }}" class="bg-white py-3 px-4 shadow rounded" enctype="multipart/form-data">
+        <form method ="POST" action="/servicii/ {{ $service->id }}" class="bg-white py-3 px-4 shadow rounded" enctype="multipart/form-data">
             @csrf
             <div class = "form-group">
                 <label for="name"> Nume serviciu* </label>
@@ -31,7 +31,7 @@
             </div>
             <div class = "form-group">
                 <input type="submit" class = "btn btn-success"  value = "Salveaza">
-                <a href = "{{ route('service.index') }}" type="submit" class = "btn btn-danger"> Anuleaza </a>
+                <a href = "{{ route('servicii.index') }}" type="submit" class = "btn btn-danger"> Anuleaza </a>
             </div>
 
         </form>
