@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Service;
-
+use App\Models\Services;
 
 class ServiceController extends Controller {
-
-
+    private function insertInDatabase($service, $request) {
+        $service->name = $request->input('name');
+        $service->duration = $request->input('duration');
+        $service->price = $request->input('price');
+        $service->save();
+    }
 
 
     public function index() {
-        $services = Service::orderBy('id')->paginate(5);
-        return view('services.index', ['services' => $services]);
+        $service = Services::all();
+        return view('services.index' , ['service' => $service]);
     }
 
     public function create() {
@@ -21,57 +24,19 @@ class ServiceController extends Controller {
     }
 
     public function store(Request $request) {
-
-        $service = $this->validate($request, [
-            'name' => 'required',
-            'activity' => 'required',
-            'description' => 'required',
-            'time' => 'required',
-            'price' => 'required',
-       ]);
-
-       $service = new Service();
-       $service->name = $request->input('name');
-       $service->activity = $request->input('activity');
-       $service->description = $request->input('description');
-       $service->time = $request->input('time');
-       $service->price = $request->input('price');
-       $service->user_id = auth()->user()->id;
-       $service->save();
-
-       return redirect('servicii');
+       $service = new Services;
+       self::insertInDatabase($service, $request);
+       return redirect(route('servicii.index'));
     }
+
     public function edit($id) {
-        $service = Service::findOrFail($id);
-        return view('services.edit', ['service' => $service]);
+        $service = Services::findOrFail($id);
+        return view('services.edit' , ['service' => $service]);
     }
-
 
     public function update(Request $request, $id) {
-        $service = $this->validate($request, [
-            'name' => 'required',
-            'activity' => 'required',
-            'description' => 'required',
-            'time' => 'required',
-            'price' => 'required',
-       ]);
-
-       $service = Service::findOrFail($id);
-       $service->name = $request->input('name');
-       $service->activity = $request->input('activity');
-       $service->description = $request->input('description');
-       $service->time = $request->input('time');
-       $service->price = $request->input('price');
-       $service->save();
-
-       return redirect('servicii');
-
-    }
-
-    public function destroy($id) {
-        $service = Service::findOrFail($id);
-        $service->delete();
-
-        return redirect('/service');
+       $service = Services::findOrFail($id);
+       self::inserInDatabase($service, $request);
+       return redirect(route('servicii.index'));
     }
 }

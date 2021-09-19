@@ -14,10 +14,10 @@
                                 <h5> {{ $user->forename }}  {{ $user->name }} </h5>
                                 <hr>
                                         @foreach ($services as $service)
-                                                    @if ($user->id === $service->user_id)
+                                                    @if (auth()->user()->status == 2)
                                                         <h6> {{ $service->name }} </h6>
-                                                        <small> {{ $service->price }} lei / {{ $service->time }} minute </small>
-                                                        <a href = "fa-o-programare/calendar" class = "btn btn-warning btn-sm"> Rezerva </a>
+                                                        <small> {{ $service->price }} lei / {{ $service->duration }} minute </small>
+                                                            <a href = "fa-o-programare/calendar" class = "btn btn-warning btn-sm"> Rezerva </a>
                                                         <br><br>
                                                     @else
                                                         <p> Servicii private </p>

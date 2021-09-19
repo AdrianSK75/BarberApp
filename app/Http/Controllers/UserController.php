@@ -17,17 +17,6 @@ class UserController extends Controller {
             return view('user.panel', ['users' => $users]);
     }
 
-    public function grade($id) {
-        $user = User::find($id);
 
-        if($user->status === 1) {
-            $user->status = null;
-        } else {
-            $user->status = 1;
-        }
-        $user->save();
-
-        return redirect('user-panel');
-    }
 }
 

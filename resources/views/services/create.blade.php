@@ -11,18 +11,8 @@
                 </div>
 
                 <div class = "form-group">
-                    <label for="activity"> Tip de activitate* </label>
-                    <input type ="text"  class="form-control" id = "serviceName" name="activity"/>
-                </div>
-
-                <div class = "form-group">
-                    <label for="description"> Descriere Serviciu </label>
-                    <textarea class="form-control" name = "description" id="bodyArea" rows="5" placeholder="(optional)"></textarea>
-                </div>
-
-                <div class = "form-group">
-                    <label for="time"> Durata serviciului* </label>
-                    <input type ="tel" name="time" class="form-control" id = "serviceTime" placeholder="(timpul in minute)"/>
+                    <label for="duration"> Durata serviciului* </label>
+                    <input type ="tel" name="duration" class="form-control" id = "serviceDuration" placeholder="(timpul in minute)"/>
                 </div>
 
                 <div class = "form-group">
@@ -39,9 +29,3 @@
     </div>
 
 @endsection
-<!--
-    <option value = "1"> Frizerie si barber shop </option>
-    <option value = "2"> Coafor si hairstyling </option>
-    <option value = "3"> Make Up si Beauty </option>
-    <option value = "4"> Alte servicii </option>
--->

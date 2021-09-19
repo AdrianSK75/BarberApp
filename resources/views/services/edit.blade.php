@@ -11,18 +11,8 @@
             </div>
 
             <div class = "form-group">
-                <label for="activity"> Tip de activitate* </label>
-                <input type ="text"  class="form-control" id = "serviceName" name="activity" value = "{{ $service->activity }}"/>
-            </div>
-
-            <div class = "form-group">
-                <label for="description"> Descriere Serviciu </label>
-                <textarea class="form-control" name = "description" id="bodyArea" rows="5" placeholder="(optional)"> {{ $service->description }}  </textarea>
-            </div>
-
-            <div class = "form-group">
-                <label for="time"> Durata serviciului* </label>
-                <input type ="tel" name="time" class="form-control" id = "serviceTime" value = "{{ $service->time }}"/>
+                <label for="duration"> Durata serviciului* </label>
+                <input type ="tel" name="duration" class="form-control" id = "serviceDuration" value = "{{ $service->duration }}"/>
             </div>
 
             <div class = "form-group">

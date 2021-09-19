@@ -12,7 +12,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "nesbot/carbon": "^2.51"
+        "nesbot/carbon": "^2.53"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
