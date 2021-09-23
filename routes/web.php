@@ -25,14 +25,18 @@ Route::post('servicii', [ServiceController::class, 'store'])->name('servicii.sto
 Route::post('servicii/{servicii::id}', [ServiceController::class, 'update']);
 
 
-
 // Schedule Routes
-Route::post('schedule', [ScheduleController::class, 'setSchedule'])->name('schedule.store');
+Route::get('/setare-program', function () {
+    return view('schedule.panel');
+});
+
+
 
 
 // Appointment Routes
 Route::get('fa-o-programare', [AppointmentController::class, 'appointment']);
 Route::get('fa-o-programare/calendar', [AppointmentController::class, 'calendar']);
+Route::post('fa-o-programare/calendar', [ScheduleController::class, 'storeEvent'])->name('storeEvent');
 
 
 //Test

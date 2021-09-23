@@ -28,12 +28,5 @@ class User extends Authenticatable
         'phone_verified_at' => 'datetime',
     ];
 
-    public function employee() {
-        return $this->hasMany(Employee::class);
-    }
-
-    public function client() {
-        return $this->hasMany(Client::class);
-    }
 
 }

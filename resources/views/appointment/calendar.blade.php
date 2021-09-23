@@ -1,17 +1,25 @@
 @extends('layouts.uicalendar')
 
 @section('ui')
+        <?php
+                use Carbon\Carbon;
+
+                $dt = Carbon::create(now()->year, now()->month, now()->day);
+                $bdt = Carbon::create($dt->year, $dt->month, $dt->startOfMonth()->day);
+                $firstPos = $bdt->dayOfWeek;
+                if ($firstPos == 1) {
+                        $firstPos = 0;
+                }
+                $date = 1;
+        ?>
+
+
     <div class="container">
 
         <div class="calendar">
 
         <header>
-
-            <h2>September</h2>
-
-            <a class="btn-prev fontawesome-angle-left" href="#"></a>
-            <a class="btn-next fontawesome-angle-right" href="#"></a>
-
+            <h2>{{ $bdt->englishMonth }} {{ $bdt->year }}</h2>
         </header>
 
         <table>
@@ -31,91 +39,87 @@
             </tr>
 
             </thead>
+            <form method ="POST" action="{{ route('storeEvent') }}" class="bg-white py-3 px-4 shadow rounded" enctype="multipart/form-data">
+                @csrf
+                <input type="text" class="form-control" id = "viewSchedule" name = "viewSchedule" value = "" readonly>
+                <tbody>
+                <tr>
+                    @for ($i = 1; $i <= 7; $i++)
+                        @if ($i >= $firstPos)
+                                <td>
+                                    <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
+                                </td>
+                            @else
+                            <td>
+                                <p> - </p>
+                            </td>
+                            @endif
+                    @endfor
+                </tr>
+                <tr>
+                    @for ($i = 1; $i <= 7; $i++)
+                            <td>
+                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
+                            </td>
+                    @endfor
+                </tr>
+                <tr>
+                    @for ($i = 1; $i <= 7; $i++)
+                            <td>
+                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
+                            </td>
+                    @endfor
+                </tr>
+                <tr>
+                    @for ($i = 1; $i <= 7; $i++)
+                            <td>
+                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
+                            </td>
+                    @endfor
+                </tr>
 
-            <tbody>
+                <tr>
+                    @for ($i = 1; $i <= 7; $i++)
+                            @if ($date <= $bdt->endOfMonth()->day)
+                                    <td>
+                                        <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
+                                    </td>
+                            @else
+                                    <td>
+                                        <p> - </p>
+                                    </td>
+                            @endif
+                    @endfor
+                </tr>
+                <tr>
+                    @for ($i = 1; $date <= $bdt->endOfMonth()->day; $i++)
+                            @if ($date <= $bdt->endOfMonth()->day)
+                                <td>
+                                    <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo Carbon::create(now()->year, now()->month, $date) ?>');" name = 'day' value = "{{ $date++ }}">
+                                </td>
+                            @else
+                                <td>
+                                    <p> - </p>
+                                </td>
+                            @endif
+                    @endfor
+                </tr>
 
-            <tr>
+                </tbody>
 
-                <?php
-                    use Carbon\Carbon;
+            </table>
+            <hr>
+            </div>
 
-                    $dt = Carbon::create(now()->year, now()->month, now()->day);
-                    $bdt = Carbon::create($dt->year, $dt->month, $dt->startOfMonth()->day);
-                    $lpos = 0;
-                    while ($bdt->isoFormat('dddd') != 'Monday') {
-                            $bdt->subDay();
-                            ++$lpos;
-                    }
-    }
-                ?>
-
-
-                <td class="prev-month">26</td>
-                <td class="prev-month">27</td>
-                <td class="prev-month">28</td>
-                <td class="prev-month">29</td>
-                <td class="prev-month">30</td>
-                <td class="prev-month">31</td>
-                <td>
-                    <button class="btn btn-light" disabled><span>2</span></button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                <button class="btn btn-light" disabled><span>2</span></button>
-                </td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-                <td class="event">21</td>
-                <td>22</td>
-            </tr>
-
-            <tr>
-                <td class="current-day event">23</td>
-                <td>24</td>
-                <td>25</td>
-                <td>26</td>
-                <td>27</td>
-                <td>28</td>
-                <td>29</td>
-            </tr>
-            <tr>
-                <td>30</td>
-                <td class="next-month">1</td>
-                <td class="next-month">2</td>
-                <td class="next-month">3</td>
-                <td class="next-month">4</td>
-                <td class="next-month">5</td>
-                <td class="next-month">6</td>
-            </tr>
-
-            </tbody>
-
-        </table>
+            <select class = "form-control" name="hourChoice" id="hourChoice" onchange = "setDate();">
+                    <option> Alege ora </option>
+            </select>
 
         </div>
+        <button type = "submit" class = "btn btn-warning"> Continua </button>
+    </form>
 
-    </div>
+
 @endsection
 
 

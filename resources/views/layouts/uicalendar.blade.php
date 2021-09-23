@@ -70,9 +70,6 @@
                     color: #7c8a95;
                 }
 
-                .calendar tbody td:hover {
-                    border: 2px solid #00addf;
-                }
 
                 .calendar td {
                     border: 2px solid transparent;
@@ -153,5 +150,56 @@
 
     <body>
         @yield('ui');
+
+        <script>
+            const select = document.getElementById('hourChoice');
+            const viewSchedule = document.getElementById('viewSchedule');
+            var hours = new Array(), options = new Array(), datejs;
+
+
+            let setHours = () => {
+                let h = 0;
+                for (let i = 9; i < 22; i++) {
+                        hours[++h] = (i.toString() + ":00");
+                        hours[++h] = (i.toString() + ":30");
+                }
+            }
+            setHours();
+
+            let getAvailableHours = (date) => {
+                    datejs = date;
+                    setDate();
+                    removeHours();
+                    for (let i = 1; i < hours.length; i++) {
+                            options[i] = document.createElement('option');
+                            options[i].text = hours[i];
+                            options[i].value = hours[i];
+                            select.appendChild(options[i]);
+                    }
+
+            }
+
+
+            let setDate = () => {
+                    let hour = select.value;
+                    datejs = datejs.substring(0, 11) + hour;
+                    viewSchedule.value = datejs;
+            }
+
+
+            let removeHours = () => {
+                    if (options.length > 0) {
+                        for (let i = 1; i <= hours.length; i++) {
+                                select.remove(options[i]);
+                        }
+                        options[0] = document.createElement('option');
+                        options[0].text = "Alege ora";
+                        select.appendChild(options[0]);
+                    }
+            }
+
+
+
+        </script>
     </body>
 </html>

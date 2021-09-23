@@ -1,24 +1,37 @@
-<?php
-    use Carbon\Carbon;
+<html>
+<head>
 
-    $dt = Carbon::create(now()->year, now()->month, now()->day);
-    $bdt = Carbon::create($dt->year, $dt->month, $dt->startOfMonth()->day);
-    $edt = Carbon::create($dt->year, $dt->month, $dt->endOfMonth()->day);
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
 
-    $lastDayOfMonth = (int)$bdt->subDay()->day;
-    $firstDayOfMonth = (int)$edt->addDay()->day;
+<body>
+        <?php
+            use Carbon\Carbon;
 
-    $lpos = 0; $fpos = 0;
-    while ($bdt->isoFormat('dddd') != 'Monday') {
-            $bdt->subDay();
-            ++$lpos;
-    }
+            $dt = Carbon::create(now()->year, now()->month, now()->day, now()->hour, now()->minute);
+            $date = 1;
+        ?>
 
-    while ($edt->isoFormat('dddd') != 'Sunday') {
-            $edt->addDay();
-            ++$fpos;
-    }
-?>
+        <button onclick = "getDate('<?php echo $dt ?>');" = > transmit spre JS </button>
 
+        <div id = 'buttons'>
 
-<p> {{ $lpos }}  {{ $fpos }} {{ $lastDayOfMonth }}  {{ $firstDayOfMonth }}</p>
+        </div>
+        <script>
+
+            var getDate = (map) => {
+                let dates = new Map();
+                dates['09:30'] = map;
+                console.log(dates);
+            }
+
+            let button = document.createElement('select');
+            //button.type = 'button';
+            //button.class = 'btn btn-primary';
+            //button.value = '9.30';
+            let div = document.getElementById('buttons');
+            div.appendChild(button);
+
+        </script>
+</body>
+</html>

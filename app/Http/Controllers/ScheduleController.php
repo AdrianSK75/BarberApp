@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\WorkHour;
 use Carbon\Carbon;
 
 class ScheduleController extends Controller {
-        public function setSchedule(Request $request, $data) {
+        public function storeEvent(Request $request) {
             $schedule = new Schedule;
-            $schedule->scheduled_at = $request->input('dateSelected');
-            $schedule->hour = $request->input('hourSelected');
+            $schedule->scheduled_at = $request->input('viewSchedule');
             $schedule->save();
 
-            return 'success';
+            return strval($schedule->scheduled_at);
         }
 
 }
