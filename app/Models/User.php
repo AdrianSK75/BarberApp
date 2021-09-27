@@ -6,16 +6,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Employee;
-use App\Models\Client;
+use App\Models\Services;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'forename',
+        'firstname',
+        'lastname',
         'phone',
         'password',
     ];
@@ -27,6 +27,10 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
     ];
+
+    public function service() {
+        return $this->hasMany(Services::class);
+    }
 
 
 }

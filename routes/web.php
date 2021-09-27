@@ -35,8 +35,9 @@ Route::get('/setare-program', function () {
 
 // Appointment Routes
 Route::get('fa-o-programare', [AppointmentController::class, 'appointment']);
+Route::post('fa-o-programare', [ScheduleController::class, 'storeEvent'])->name('storeEvent');
 Route::get('fa-o-programare/calendar', [AppointmentController::class, 'calendar']);
-Route::post('fa-o-programare/calendar', [ScheduleController::class, 'storeEvent'])->name('storeEvent');
+
 
 
 //Test

@@ -5,7 +5,7 @@
             <div class="col-md-8">
                     <a href = "profilul-meu" class = "btn btn-outline-secondary"> Inapoi </a>
                     <a href = "servicii/create" class = "btn btn-outline-primary"> Creeaza un serviciu </a>
-                        @if(count($service) > 0)
+                        @if(count($service) > 0 )
                             @foreach ($service as $s)
                                 <div class="alert alert-secondary" role="alert">
                                     <h5 class="card-title">{{ $s->name }}</h5>

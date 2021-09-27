@@ -12,10 +12,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right"> Nume </label>
+                            <label for="firstname" class="col-md-4 col-form-label text-md-right"> Nume </label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  required autocomplete="name" autofocus>
+                                <input id="firstname" type="text" class="form-control @error('name') is-invalid @enderror" name="firstname"  required autocomplete="firstname" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -26,10 +26,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="forename" class="col-md-4 col-form-label text-md-right"> Prenume </label>
+                            <label for="lastname" class="col-md-4 col-form-label text-md-right"> Prenume </label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="forename"  required autocomplete="name" autofocus>
+                                <input id="lastname" type="text" class="form-control @error('name') is-invalid @enderror" name="lastname"  required autocomplete="lastname" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

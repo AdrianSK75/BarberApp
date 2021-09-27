@@ -14,9 +14,8 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName(),
-            'forename' => $this->faker->lastName(),
-            'status' => $this->faker->is_integer(),
+            'firstname' => $this->faker->firstName(),
+            'lastname' => $this->faker->lastName(),
             'phone' => $this->faker->unique(),
             'phone_verified_at' => now(),
             'password' => '$2y$10$pAoVJwqQTfshw10XZvO2cekJxT3j0Zwa99XiS7ObS5arqRylsMHNq', // password

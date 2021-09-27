@@ -11,20 +11,22 @@
                         @if ($user->status === 2 || $user->status === 1)
                         <div class = "card">
                             <div class = "card-body">
-                                <h5> {{ $user->forename }}  {{ $user->name }} </h5>
-                                <hr>
-                                        @foreach ($services as $service)
-                                                    @if (auth()->user()->status == 2)
-                                                        <h6> {{ $service->name }} </h6>
-                                                        <small> {{ $service->price }} lei / {{ $service->duration }} minute </small>
-                                                            <a href = "fa-o-programare/calendar" class = "btn btn-warning btn-sm"> Rezerva </a>
-                                                        <br><br>
-                                                    @else
-                                                        <p> Servicii private </p>
-                                                        @break
-                                                    @endif
-                                        @endforeach
-                                    <smalL> Numar de telefon: <strong>{{ $user->phone }}</strong> </small>
+
+                                    <h5> {{ $user->lastname }}  {{ $user->firstname }} </h5>
+                                    <hr>
+                                            @foreach ($user->service as $service)
+                                                        <form action="{{ route('storeEvent') }}" method="get">
+                                                            @csrf
+                                                            <h6> {{ $service->name }} </h6>
+                                                            <small> {{ $service->price }} lei / {{ $service->duration }} minute </small>
+                                                            <input type="hidden" name = "selectedBarber" value = "{{ $user->id }}">
+                                                            <button type = "submit"></button>
+                                                            <br><br>
+                                                        </form>
+
+                                            @endforeach
+                                        <smalL> Numar de telefon: <strong>{{ $user->phone }}</strong> </small>
+
                             </div>
                         </div><br>
                         @endif
@@ -37,3 +39,4 @@
 </div>
 
 @endsection
+

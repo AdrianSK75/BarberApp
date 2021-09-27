@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Services;
+use App\Models\User;
 
 class ServiceController extends Controller {
     private function insertInDatabase($service, $request) {
+        $service->user_id = auth()->user()->id;
         $service->name = $request->input('name');
         $service->duration = $request->input('duration');
         $service->price = $request->input('price');
@@ -15,7 +17,7 @@ class ServiceController extends Controller {
 
 
     public function index() {
-        $service = Services::all();
+        $service = User::find(auth()->user()->id)->service;
         return view('services.index' , ['service' => $service]);
     }
 
@@ -36,7 +38,7 @@ class ServiceController extends Controller {
 
     public function update(Request $request, $id) {
        $service = Services::findOrFail($id);
-       self::inserInDatabase($service, $request);
+       self::insertInDatabase($service, $request);
        return redirect(route('servicii.index'));
     }
 }
