@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Services;
+use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
@@ -30,6 +31,10 @@ class User extends Authenticatable
 
     public function service() {
         return $this->hasMany(Services::class);
+    }
+
+    public function appointments() {
+        $this->hasMany(Appointment::class);
     }
 
 
