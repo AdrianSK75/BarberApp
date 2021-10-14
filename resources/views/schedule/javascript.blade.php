@@ -1,6 +1,6 @@
 
 <script>
-    $(function(){
+    $(function() {
         var dtToday = new Date();
 
         var month = dtToday.getMonth() + 1;
@@ -12,63 +12,71 @@
             day = '0' + day.toString();
 
         var maxDate = year + '-' + month + '-' + day;
-        $('#date').attr('min', maxDate);
+        $('#date').attr('min',  maxDate);
     });
     const timestamp = document.getElementById('viewSchedule');
     const date = document.getElementById('date');
     const hour = document.getElementById('hour');
-    var unavailable = [];
+    var timestamps = @json($timestamps);
     var hours = new Array(), options = new Array();
+
 
     let generateHours = () => {
             let length = 0
             for (let i = 9; i < 22; i++) {
-                    hours[++length] = (i.toString() + ":00");
-                    hours[++length] = (i.toString() + ":30");
+                    if (i < 10) {
+                        hours[++length] = "0" + (i.toString() + ":00");
+                        hours[++length] = "0" + (i.toString() + ":30");
+                    } else {
+                        hours[++length] = (i.toString() + ":00");
+                        hours[++length] = (i.toString() + ":30");
+                    }
             }
-            console.log(hours);
     }
     generateHours();
 
+    let initialization = () => {
+            console.log(timestamps);
+            removeHours();
+            setHours();
+    }
 
     let setHours = () => {
         for (let i = 1; i < hours.length; i++) {
-                options[i] = document.createElement("option");
-                options[i].value = hours[i];
-                options[i].text = hours[i];
-                hour.appendChild(options[i]);
+                let d1 = new Date(), d2 = new Date(date.value + " " + hours[i]);
+                let d3 = date.value + " " + hours[i] + ":00";
+                if (d1 < d2 && is_available(d3)) {
+                    options[i] = document.createElement("option");
+                    options[i].value = hours[i];
+                    options[i].text = hours[i];
+                    hour.appendChild(options[i]);
+                }
         }
         setTimestamp();
     }
-    /*
-    let verify = (hourChoice) => {
-            for (let i = 0; i < unavailable[date.value].length(); i++)
-                    if (unavailable[date.value][i] == hourChoice)
-                            return true;
-            return false;
+
+    let is_available = (timestamp) => {
+            for (let i = 0; i < timestamps.length; i++) {
+                    if (timestamps[i] == timestamp)
+                            return 0;
+            }
+            return 1;
     }
-    */
-    let removeHours = () => {
-        for (let i = 1; i < options.length; i++) {
-                hour.remove(options[i]);
-        }
-    }
+
+   let removeHours = () => {
+       for (let i = 0; i < options.length; i++) {
+            hour.remove(options[i]);
+       }
+   }
 
     let setTimestamp = () => {
         timestamp.value = date.value + " " + hour.value;
-        console.log(timestamp.value);
     };
-    /*
+
     let confirmation = () => {
-        if (unavailable[date.value].length == 0) {
-            unavailable[date.value] = [];
-            unavailable[date.value][0] = hour.value;
-        } else {
-            unavailable[date.value][unavailable[date.value].length++] = hour.value;
-        }
-        console.log(unavailable[date.value].length);
+        localStorage.getItem(date.value).push(hour.value);
+
         removeHours();
         setHours();
     }
-    */
 </script>

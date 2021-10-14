@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Models\Appointment;
 
 class LearnController extends Controller {
-    public $unavailable = array();
+
 
     public function learn() {
-        $time = Carbon::create(21, 9, 21);
-        for ($i = 9; $i < 22; $i++) {
-                $unavailable[strval($i) . ":00"] = $time->addDay();
-                $unavailable[strval($i) . ":30"] = $time->addDay();
-        }
+        $appointments = Appointment::all();
+        $timestamps = $appointments->map(function ($item) {
+                        return $item->scheduled_at;
+        })->toArray();
 
-        return view('learn', ['unavailable' => $unavailable]);
+        return view('learn', ['timestamps' => $timestamps]);
     }
 }

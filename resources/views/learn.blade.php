@@ -5,33 +5,14 @@
 </head>
 
 <body>
-        <?php
-            use Carbon\Carbon;
+        @foreach ($timestamps as $timestamp)
+                <p> {{ $timestamp }} </p>
+        @endforeach
 
-            $dt = Carbon::create(now()->year, now()->month, now()->day, now()->hour, now()->minute);
-            $date = 1;
-        ?>
-
-        <button onclick = "getDate('<?php echo $dt ?>');" = > transmit spre JS </button>
-
-        <div id = 'buttons'>
-
-        </div>
         <script>
-
-            var getDate = (map) => {
-                let dates = new Map();
-                dates['09:30'] = map;
-                console.log(dates);
-            }
-
-            let button = document.createElement('select');
-            //button.type = 'button';
-            //button.class = 'btn btn-primary';
-            //button.value = '9.30';
-            let div = document.getElementById('buttons');
-            div.appendChild(button);
-
+            let times = new Array(@json($timestamps));
+            console.log(times[0][1]);
         </script>
+
 </body>
 </html>

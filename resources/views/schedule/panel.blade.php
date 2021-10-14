@@ -19,7 +19,7 @@
                                     @endforeach
                             </select>
 
-                            <input type="date" name="date" id="date" onchange="setHours()" class="form-control"><br>
+                            <input type="date" name="date" id="date" onchange="initialization()" class="form-control"><br>
 
                             <select name="hour" id="hour" onchange = "setTimestamp()" class="form-select form-select-lg mb-3"></select>
 

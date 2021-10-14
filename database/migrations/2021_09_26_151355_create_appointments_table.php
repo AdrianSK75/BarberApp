@@ -14,6 +14,7 @@ class CreateAppointmentsTable extends Migration
             $table->foreignId('client_id');
             $table->foreignId('service_id');
             $table->timestamp('scheduled_at')->unique();
+            $table->string('date');
             $table->timestamps();
         });
     }

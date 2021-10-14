@@ -1,8 +1,9 @@
 @extends('layouts.uicalendar')
-
 @section('ui')
+
         <?php
                 use Carbon\Carbon;
+                use Illuminate\Support\Facades\DB;
 
                 $dt = Carbon::create(now()->year, now()->month, now()->day);
                 $bdt = Carbon::create($dt->year, $dt->month, $dt->startOfMonth()->day);
@@ -11,6 +12,13 @@
                         $firstPos = 0;
                 }
                 $date = 1;
+
+                function qempty($date) {
+                        $date = substr(strval($date), 0, 10);
+                        $appointments = DB::table('appointments')->where('date', $date)->get();
+
+                        return $appointments;
+                }
         ?>
 
 
@@ -39,16 +47,19 @@
             </tr>
 
             </thead>
-            <form method ="POST" action="{{ route('storeEvent') }}" class="bg-white py-3 px-4 shadow rounded" enctype="multipart/form-data">
-                @csrf
-                <input type="text" class="form-control" id = "viewSchedule" name = "viewSchedule" value = "" readonly>
                 <tbody>
                 <tr>
                     @for ($i = 1; $i <= 7; $i++)
                         @if ($i >= $firstPos)
-                                <td>
-                                    <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
-                                </td>
+                                @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                        <td>
+                                            <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                        </td>
+                                @else
+                                        <td>
+                                            <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                        </td>
+                                @endif
                             @else
                             <td>
                                 <p> - </p>
@@ -58,32 +69,56 @@
                 </tr>
                 <tr>
                     @for ($i = 1; $i <= 7; $i++)
-                            <td>
-                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
-                            </td>
+                            @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                    </td>
+                            @else
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                    </td>
+                            @endif
                     @endfor
                 </tr>
                 <tr>
                     @for ($i = 1; $i <= 7; $i++)
-                            <td>
-                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
-                            </td>
+                            @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                    </td>
+                            @else
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                    </td>
+                            @endif
                     @endfor
                 </tr>
                 <tr>
                     @for ($i = 1; $i <= 7; $i++)
-                            <td>
-                                <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
-                            </td>
+                            @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                    </td>
+                            @else
+                                    <td>
+                                        <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                    </td>
+                            @endif
                     @endfor
                 </tr>
 
                 <tr>
                     @for ($i = 1; $i <= 7; $i++)
                             @if ($date <= $bdt->endOfMonth()->day)
-                                    <td>
-                                        <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo strval(Carbon::create(now()->year, now()->month, $date)) ?>');" name = 'day' value = "{{ $date++ }}">
-                                    </td>
+                                    @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                            <td>
+                                                <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                            </td>
+                                    @else
+                                            <td>
+                                                <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                            </td>
+                                    @endif
                             @else
                                     <td>
                                         <p> - </p>
@@ -94,9 +129,15 @@
                 <tr>
                     @for ($i = 1; $date <= $bdt->endOfMonth()->day; $i++)
                             @if ($date <= $bdt->endOfMonth()->day)
-                                <td>
-                                    <input type ="button" class="btn btn-light" onclick = "getAvailableHours('<?php echo Carbon::create(now()->year, now()->month, $date) ?>');" name = 'day' value = "{{ $date++ }}">
-                                </td>
+                                    @if (count(qempty(strval(Carbon::create(now()->year, now()->month, $date)))) > 0)
+                                            <td>
+                                                <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-primary"> {{ $date++ }} </a>
+                                            </td>
+                                    @else
+                                            <td>
+                                                <a href = "{{ strval(Carbon::create(now()->year, now()->month, $date)) }}" class = "btn btn-danger"> {{ $date++ }} </a>
+                                            </td>
+                                    @endif
                             @else
                                 <td>
                                     <p> - </p>
@@ -109,17 +150,8 @@
 
             </table>
             <hr>
+            <a href = "/programarile-mele" class = "btn btn-outline-secondary"> Inapoi </a>
             </div>
-
-            <select class = "form-control" name="hourChoice" id="hourChoice" onchange = "setDate();">
-                    <option> Alege ora </option>
-            </select>
-
-        </div>
-        <button type = "submit" class = "btn btn-warning"> Continua </button>
-    </form>
-
-
 @endsection
 
 
