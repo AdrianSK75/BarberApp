@@ -1,5 +1,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+     const timestamp = document.getElementById('viewSchedule');
+     const date = document.getElementById('date');
+     const hour = document.getElementById('hour');
+     var timestamps = @json($timestamps);
+     var hours = new Array(), options = new Array();
+    
     $(function() {
         var dtToday = new Date();
 
@@ -14,11 +20,7 @@
         var maxDate = year + '-' + month + '-' + day;
         $('#date').attr('min',  maxDate);
     });
-    const timestamp = document.getElementById('viewSchedule');
-    const date = document.getElementById('date');
-    const hour = document.getElementById('hour');
-    var timestamps = @json($timestamps);
-    var hours = new Array(), options = new Array();
+   
 
 
     let generateHours = () => {
