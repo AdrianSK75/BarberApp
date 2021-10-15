@@ -3,40 +3,39 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
-            <h2> Barber Shop </h2>
-            <h4> Strada Oitelor nr. 4 </h4>
-            <br>
-                @if (count($services) > 0)
-                    @foreach ($users as $user)
-                        @if ($user->status === 2 || $user->status === 1)
-                        <div class = "card">
-                            <div class = "card-body">
+        <div class="card">
+            <div class="card-body">
+                    <form action="{{ route('storeEvent') }}" method="post" class = "form-group">
+                        @csrf
+                            <select name="barber" id="barber" class="form-select form-select-lg mb-3">
+                                    @foreach ($barber as $u)
+                                                @if ($u->status == 2)
+                                                    @foreach ($u->service as $s)
 
-                                    <h5> {{ $user->lastname }}  {{ $user->firstname }} </h5>
-                                    <hr>
-                                            @foreach ($user->service as $service)
-                                                        <form action="{{ route('storeEvent') }}" method="get">
-                                                            @csrf
-                                                            <h6> {{ $service->name }} </h6>
-                                                            <small> {{ $service->price }} lei / {{ $service->duration }} minute </small>
-                                                            <input type="hidden" name = "selectedBarber" value = "{{ $user->id }}">
-                                                            <button type = "submit"></button>
-                                                            <br><br>
-                                                        </form>
+                                                            <option value = "{{ $u->id . $s->id}}"> {{ $s->name }} => {{ $s->price }} lei / {{ $s->duration }} minute </option>
 
-                                            @endforeach
-                                        <smalL> Numar de telefon: <strong>{{ $user->phone }}</strong> </small>
+                                                    @endforeach
+                                                @endif
+                                    @endforeach
+                            </select>
 
-                            </div>
-                        </div><br>
-                        @endif
-                    @endforeach
-                @else
-                        <p> Doar servicii private </p>
-                @endif
+                            <input type="date" name="date" id="date" onchange="initialization()" class="form-control"><br>
 
+                            <select name="hour" id="hour" onchange = "setTimestamp()" class="form-select form-select-lg mb-3"></select>
+
+                            <input type = "hidden" name = "viewSchedule" id = "viewSchedule" value = "">
+                            <button type = "submit" class = "btn btn-warning"> Confirmare </button>
+                    </form>
+            </div>
+        </div><br>
+        @if (auth()->user()->status == 2)
+                <a href = "/servicii/create" class = "btn btn-success"> Creeaza un serviciu pentru clienti </a>
+        @endif
     </div>
 </div>
+@include('appointment.functions')
 
 @endsection
+
+
 

@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\LearnController;
-
+use App\Models\Appointment;
 
 Route::view('/', 'welcome');
 
@@ -23,11 +23,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('servicii/{servicii::id}', [ServiceController::class, 'update']);
 
 // Appointment Routes
-    Route::get('fa-o-programare', [ScheduleController::class, 'makeAppointment']);
-    Route::post('fa-o-programare', [ScheduleController::class, 'storeEvent'])->name('storeEvent');
-    Route::get('programarile-mele', [ScheduleController::class, "viewInbox"]);
-    Route::get('programarile-mele/calendar', [ScheduleController::class, "showInboxCalendar"])->middleware('admin');
-    Route::get('programarile-mele/{date}', [ScheduleController::class, "viewDayInbox"])->middleware('admin');
+    Route::get('fa-o-programare', [AppointmentController::class, 'makeAppointment']);
+    Route::post('fa-o-programare', [AppointmentController::class, 'storeEvent'])->name('storeEvent');
+    Route::get('programarile-mele', [AppointmentController::class, "viewInbox"]);
+    Route::get('programarile-mele/calendar', [AppointmentController::class, "showInboxCalendar"])->middleware('admin');
+    Route::get('programarile-mele/{appointments::date}', [AppointmentController::class, "viewDayInbox"])->middleware('admin');
 
 //Test
     Route::get('learn', [LearnController::class, 'learn']);

@@ -7,7 +7,7 @@ use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class ScheduleController extends Controller {
+class AppointmentController extends Controller {
 
         public function makeAppointment() {
             $barber = User::all();
@@ -15,7 +15,7 @@ class ScheduleController extends Controller {
             $timestamps = $appointments->map(function ($item) {
                         return $item->scheduled_at;
             })->toArray();
-            return view('schedule.panel', ['barber' => $barber, 'timestamps' => $timestamps]);
+            return view('appointment.panel', ['barber' => $barber, 'timestamps' => $timestamps]);
         }
 
         private function insertInDataBase($request, $appointment) {

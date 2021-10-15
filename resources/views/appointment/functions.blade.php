@@ -1,4 +1,4 @@
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(function() {
         var dtToday = new Date();
@@ -36,16 +36,16 @@
     generateHours();
 
     let initialization = () => {
-            console.log(timestamps);
-            removeHours();
+            options = new Array();
+            $('#hour').empty();
             setHours();
     }
 
     let setHours = () => {
         for (let i = 1; i < hours.length; i++) {
-                let d1 = new Date(), d2 = new Date(date.value + " " + hours[i]);
+                let d1 = new Date(), d2 = new Date(date.value + " " + hours[i] + ":00");
                 let d3 = date.value + " " + hours[i] + ":00";
-                if (d1 < d2 && is_available(d3)) {
+                if (d1 < d2 && !timestamps.includes(d3)) {
                     options[i] = document.createElement("option");
                     options[i].value = hours[i];
                     options[i].text = hours[i];
@@ -55,28 +55,8 @@
         setTimestamp();
     }
 
-    let is_available = (timestamp) => {
-            for (let i = 0; i < timestamps.length; i++) {
-                    if (timestamps[i] == timestamp)
-                            return 0;
-            }
-            return 1;
-    }
-
-   let removeHours = () => {
-       for (let i = 0; i < options.length; i++) {
-            hour.remove(options[i]);
-       }
-   }
-
     let setTimestamp = () => {
         timestamp.value = date.value + " " + hour.value;
     };
 
-    let confirmation = () => {
-        localStorage.getItem(date.value).push(hour.value);
-
-        removeHours();
-        setHours();
-    }
 </script>
